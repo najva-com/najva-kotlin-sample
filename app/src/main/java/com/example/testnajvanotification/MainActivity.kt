@@ -7,6 +7,11 @@ import com.najva.najvasdk.Class.Najva
 
 class MainActivity : AppCompatActivity() {
 
+    val champaignId = 0
+    val websiteId =   0
+    val apikey = ""
+    val locationEnables = false
+
     private val handlerResult : (String)-> Unit =  {
         //it is your users token
     }
@@ -14,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Najva.initialize(this, 1247443, 5768, "77d0712b-14ad-4a6a-a867-8a0e221b085d", true)
+        Najva.initialize(this, champaignId, websiteId, apikey, locationEnables)
 
         initUserHandler()
     }
