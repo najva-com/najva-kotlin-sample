@@ -67,10 +67,14 @@ import com.najva.najvasdk.Service.NajvaMessagingService
 class MyAppService :NajvaMessagingService(){
 
    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-       val map = remoteMessage?.data
-       val jsonData = map?.get("json-data")
-       //todo parse json and send parsed data through broadcast or start activity etc...
-   }
+        super.onMessageReceived(remoteMessage)
+        if(canNajvaHandleNotification)
+            NajvaPushNotificationHandler.handleMessage(applicationContext,remoteMessage)
+        else{
+            val map = remoteMessage?.data
+            doMyCustomAction(data?.get('json-data')
+        }
+    }
 }
 ```
 Now you have access to the `JSON` and you can write your own code
