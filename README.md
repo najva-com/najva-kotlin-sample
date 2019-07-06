@@ -51,6 +51,10 @@ You can instead of getting new `android notifiaction` receive a `JSON` and do yo
 To do it add thease codes to `AndroidManifest.xml` file
 
 ```
+
+<service android:name="com.najva.najvasdk.Class.NajvaPushNotificationHandler"
+    tools:node="remove" />
+
 <service android:name=".MyAppService">
     <intent-filter>
         <action android:name="com.najva.najvasdk.Service.NajvaMessagingService" ></action>
@@ -62,9 +66,9 @@ In next step you need to declare a service in your application called `MyAppServ
 
 ```
 import com.google.firebase.messaging.RemoteMessage
-import com.najva.najvasdk.Service.NajvaMessagingService
+import com.google.firebase.messaging.FirebaseMessagingService
 
-class MyAppService :NajvaMessagingService(){
+class MyAppService : FirebaseMessagingService(){
 
    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
