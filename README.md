@@ -39,9 +39,9 @@ And in `onCreate` method add
 Najva.initialize(this, YOUR-CAMPAIGN-ID, YOUR-WEBSITE-ID, YOUR-API-KEY, true)
 ```
 
-*This code will be automatically generated in your Application Panel and you just need to copy it.
+* This code will be automatically generated in your Application Panel and you just need to copy it.
 
-*To make sure that you did everything right install your app in any device and after few minutes your device should be displayed in your Panel
+* To make sure that you did everything right install your app in any device and after few minutes your device should be displayed in your Panel
 Also you can send a notification and check if you can receive it.
 
 #### Now Application is ready for push notifications
