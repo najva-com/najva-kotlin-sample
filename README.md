@@ -1,4 +1,5 @@
 # Najva kotling example
+This is a simple sample for using NajvaSDK in your app.
 
 ## Implementation guide
 
@@ -57,7 +58,7 @@ To do it add thease codes to `AndroidManifest.xml` file
 
 <service android:name=".MyAppService">
     <intent-filter>
-        <action android:name="com.najva.najvasdk.Service.NajvaMessagingService" ></action>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
     </intent-filter>
 </service>
 ```
