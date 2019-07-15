@@ -1,4 +1,5 @@
 # Najva kotling example
+This is a simple sample for using NajvaSDK in your app.
 
 ## Implementation guide
 
@@ -38,9 +39,9 @@ And in `onCreate` method add
 Najva.initialize(this, YOUR-CAMPAIGN-ID, YOUR-WEBSITE-ID, YOUR-API-KEY, true)
 ```
 
-*This code will be automatically generated in your Application Panel and you just need to copy it.
+* This code will be automatically generated in your Application Panel and you just need to copy it.
 
-*To make sure that you did everything right install your app in any device and after few minutes your device should be displayed in your Panel
+* To make sure that you did everything right install your app in any device and after few minutes your device should be displayed in your Panel
 Also you can send a notification and check if you can receive it.
 
 #### Now Application is ready for push notifications
@@ -51,9 +52,13 @@ You can instead of getting new `android notifiaction` receive a `JSON` and do yo
 To do it add thease codes to `AndroidManifest.xml` file
 
 ```
+
+<service android:name="com.najva.najvasdk.Class.NajvaPushNotificationHandler"
+    tools:node="remove" />
+
 <service android:name=".MyAppService">
     <intent-filter>
-        <action android:name="com.najva.najvasdk.Service.NajvaMessagingService" ></action>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
     </intent-filter>
 </service>
 ```
@@ -62,15 +67,19 @@ In next step you need to declare a service in your application called `MyAppServ
 
 ```
 import com.google.firebase.messaging.RemoteMessage
-import com.najva.najvasdk.Service.NajvaMessagingService
+import com.google.firebase.messaging.FirebaseMessagingService
 
-class MyAppService :NajvaMessagingService(){
+class MyAppService : FirebaseMessagingService(){
 
    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-       val map = remoteMessage?.data
-       val jsonData = map?.get("json-data")
-       //todo parse json and send parsed data through broadcast or start activity etc...
-   }
+        super.onMessageReceived(remoteMessage)
+        if(canNajvaHandleNotification)
+            NajvaPushNotificationHandler.handleMessage(applicationContext,remoteMessage)
+        else{
+            val map = remoteMessage?.data
+            doMyCustomAction(data?.get('json-data')
+        }
+    }
 }
 ```
 Now you have access to the `JSON` and you can write your own code
