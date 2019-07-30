@@ -13,16 +13,15 @@ class MainActivity : AppCompatActivity() {
     val champaignId = 0
     val websiteId = 0
     val apikey = ""
-    val locationEnables = false
 
     private val handlerResult: (String) -> Unit = {
-        //TODO it is your users token, send it to your server etc.
+        //TODO 'it' is your users token, send it to your server etc.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Najva.initialize(this, champaignId, websiteId, apikey, locationEnables)
+        Najva.initialize(this, champaignId, websiteId, apikey)
 
         initUserHandler()
 
