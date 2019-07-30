@@ -2,7 +2,7 @@
 This is a Kotlin application that NajvaSdk implemented in it.
 
 ### Test Najva Service in Kotlin
-If you want test Najva Push Notification Service in ionic application you should:
+If you want test Najva Push Notification Service in Kotlin application you should:
 
 1.  Clone this project and rename package name of it 
 
