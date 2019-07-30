@@ -1,5 +1,5 @@
 # najva Kotlin Application
-This is a Kotlin application that Najva_cordova_plugin implemented in it.
+This is a Kotlin application that NajvaSdk implemented in it.
 
 ### Test Najva Service in Kotlin
 If you want test Najva Push Notification Service in ionic application you should:
