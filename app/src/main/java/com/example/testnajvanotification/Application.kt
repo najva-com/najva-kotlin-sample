@@ -16,16 +16,27 @@ class Application : android.app.Application(){
 
 
         registerActivityLifecycleCallbacks(
-            NajvaClient(this,NajvaConfiguration().apply {
+            NajvaClient.getInstance(this,NajvaConfiguration().apply {
                 setNajvaJsonDataListener {
                     json = it
                 }
                 setUserSubscriptionListener {
                     sendTokenToServer(it)
                 }
+
+                setNotificationClickListener { notificationId, buttonId ->
+
+                }
+
+                setReceiveNotificationListener {notificationId ->
+
+                }
+
                 //disableLocation()
             })
         )
+
+
     }
 
     private fun sendTokenToServer(it: String) {
