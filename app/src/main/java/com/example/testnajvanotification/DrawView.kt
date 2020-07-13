@@ -12,16 +12,23 @@ import kotlin.math.min
 class DrawView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     View(context, attrs, defStyleAttr) {
 
-    var bitmap: Bitmap? = null
-
     var color = Color.BLACK
 
     lateinit var paint: Paint
 
+    var line: RectF? = null
+
+    var lastX = -1f
+    var lastY = -1f
+
+    var currentX = -1f
+    var currentY = -1f
+
+    lateinit var offScreenCanvas: Canvas
+    lateinit var bitmap: Bitmap
+
     lateinit var bitmatrix: Matrix
 
-    var lastX = 0f
-    var lastY = 0f
 
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
 
@@ -29,68 +36,59 @@ class DrawView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
 
     init {
         viewTreeObserver.addOnGlobalLayoutListener {
-            initBitmap()
+            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            offScreenCanvas = Canvas(bitmap)
+
+            setOnTouchListener { _, event ->
+                if (event.x <= 0 || event.y <= 0) return@setOnTouchListener false
+                if (event.x > width - 10 || event.y > height - 10) return@setOnTouchListener false
+
+                drawLine(event.x, event.y)
+                invalidate()
+
+                if (event.action == MotionEvent.ACTION_UP) {
+                    lastY = -1f
+                    lastX = -1f
+                }
+                return@setOnTouchListener true
+            }
         }
 
-        setOnTouchListener { _, event ->
-            if (bitmap == null) {
-                return@setOnTouchListener false
-            }
-            if (event.x <= 0 || event.y <= 0) return@setOnTouchListener false
-            if (event.x > width - 10 || event.y > height - 10) return@setOnTouchListener false
-
-            drawLine(event.x, event.y)
-            invalidate()
-
-            if (event.action == MotionEvent.ACTION_UP) {
-                lastY = 0f
-                lastX = 0f
-            }
-            return@setOnTouchListener true
-        }
         initPaint()
+
         bitmatrix = Matrix()
     }
 
     private fun drawLine(x: Float, y: Float) {
-        if (lastX == 0f && lastY == 0f) {
-            lastX = x
-            lastY = y
-            return
+        currentX = x
+        currentY = y
+
+        if (lastX >= 0f || lastY >= 0f) {
+            line = RectF(currentX, currentY, lastX, lastY)
+            Log.d("Drawer", "line added")
         }
-
-        Log.d("Drawer", "x = $x y= $y lx=$lastX ly=$lastY")
-
-        val rect = Rect(
-            min(x, lastX).toInt(),
-            min(y, lastY).toInt(),
-            max(x, lastX).toInt(),
-            max(y, lastY).toInt()
-        )
-
-        val pixels = IntArray(rect.width() * rect.height())
-        bitmap?.getPixels(pixels, 0, rect.width(), rect.left, rect.top, rect.width(), rect.height())
-
-        pixels.forEachIndexed { index, i -> pixels[index] = color }
-        bitmap?.setPixels(pixels, 0, rect.width(), rect.left, rect.top, rect.width(), rect.height())
 
         lastX = x
         lastY = y
+
+        paint.color = color
+
+        line?.apply {
+            offScreenCanvas.drawLine(this.left, this.top, this.right, this.bottom, paint)
+        }
+
     }
 
-    private fun initBitmap() {
-        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    }
 
     private fun initPaint() {
         paint = Paint()
+        paint.strokeWidth = 3f
         paint.isAntiAlias = true
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        if (bitmap == null) return
+        canvas?.drawBitmap(bitmap, bitmatrix, paint)
 
-        canvas?.drawBitmap(bitmap!!, bitmatrix, paint)
     }
 }
