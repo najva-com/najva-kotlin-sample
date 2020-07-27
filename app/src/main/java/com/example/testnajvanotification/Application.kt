@@ -4,6 +4,7 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.FirebaseApp
 import com.najva.sdk.NajvaClient
 import com.najva.sdk.NajvaConfiguration
 
@@ -14,6 +15,7 @@ class Application : android.app.Application(){
     override fun onCreate() {
         super.onCreate()
 
+        FirebaseApp.initializeApp(this)
 
         registerActivityLifecycleCallbacks(
             NajvaClient.getInstance(this,NajvaConfiguration().apply {
@@ -33,6 +35,8 @@ class Application : android.app.Application(){
                 }
 
                 //disableLocation()
+
+                firebaseEnabled = true
             })
         )
 
