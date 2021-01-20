@@ -1,60 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <com.example.testnajvanotification.DrawView
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/drawView" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/textToken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Najva token"
+            android:padding="8dp"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="notificationLowPriority"
+            android:text="low priority" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/colorRed"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="2dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/colorBlue"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/blue"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="2dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/colorGreen"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/green"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="2dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/colorBlack"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="2dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="notificationHighPriority"
+            android:text="high priority" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="notificationIcon"
+            android:text="icon" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="notificationImage"
+            android:text="image" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="notificationBigText"
+            android:text="big text" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

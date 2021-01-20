@@ -10,18 +10,11 @@ import com.najva.sdk.NajvaConfiguration
 
 class Application : android.app.Application(){
 
-    private var json = ""
-
     override fun onCreate() {
         super.onCreate()
 
-        FirebaseApp.initializeApp(this)
-
         registerActivityLifecycleCallbacks(
             NajvaClient.getInstance(this,NajvaConfiguration().apply {
-                setNajvaJsonDataListener {
-                    json = it
-                }
                 setUserSubscriptionListener {
                     sendTokenToServer(it)
                 }
@@ -33,10 +26,6 @@ class Application : android.app.Application(){
                 setReceiveNotificationListener {notificationId ->
 
                 }
-
-                //disableLocation()
-
-                firebaseEnabled = true
             })
         )
 
